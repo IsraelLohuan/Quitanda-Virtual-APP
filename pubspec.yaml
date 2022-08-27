@@ -30,4 +30,4 @@ flutter:
 
   assets:
     - assets/fruits/
-  
+    - assets/app_images/
