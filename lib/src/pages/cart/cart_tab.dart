@@ -20,6 +20,8 @@ class _CartTabState extends State<CartTab> {
     setState(() {
       appData.cartItems.remove(cartItem);
     });
+
+    UtilsServices.showToast(message: '${cartItem.item.itemName} removido do carrinho!');
   }
 
   double cartTotalPrice() {
@@ -96,6 +98,8 @@ class _CartTabState extends State<CartTab> {
                             return PaymentDialog(order: appData.orders.first,);
                           }
                         );
+                      } else {
+                        UtilsServices.showToast(message: 'Pedido não confirmado', isError: true);
                       }
                     },
                     child: const Text('Concluir pedido', style: TextStyle(fontSize: 18),),
