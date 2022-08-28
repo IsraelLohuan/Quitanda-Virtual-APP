@@ -1,3 +1,5 @@
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
+import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
@@ -15,8 +17,14 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
- 
+  GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
+  late Function(GlobalKey) runAddToCardAnimation;
+
   String selectedCategory = 'Frutas';
+
+  void itemSelectedCartAnimations(GlobalKey gkImage) {
+    runAddToCardAnimation(gkImage);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,40 +61,54 @@ class _HomeTabState extends State<HomeTab> {
               right: 15
             ),
             child: GestureDetector(
-              onTap: () => print('...'),
+              onTap: () {},
               child: Badge(
                 badgeColor: CustomColors.customConstratColor,
                 badgeContent: const Text('2', style: TextStyle(color: Colors.white, fontSize: 12)),
-                child: Icon(
-                  Icons.shopping_cart,
-                  color: CustomColors.customSwatchColor
+                child: AddToCartIcon(
+                  key: globalKeyCartItems,
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: CustomColors.customSwatchColor
+                  ),
                 )
               ),
             ),
           )
         ],
       ),
-      body: Column(
-        children: [
-          buildSearch(),
-          buildCategories(),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 9 / 11.5
-              ), 
-              itemCount: appData.items.length,
-              itemBuilder: (_, index) {
-                return ItemTile(item: appData.items[index],);
-              }
-            ),
-          )
-        ],
+      body: AddToCartAnimation(
+        gkCart: globalKeyCartItems,
+        previewDuration: const Duration(milliseconds: 100),
+        previewCurve: Curves.ease,
+        receiveCreateAddToCardAnimationMethod: (addToCardAnimationMethod) {
+          runAddToCardAnimation = addToCardAnimationMethod;
+        },
+        child: Column(
+          children: [
+            buildSearch(),
+            buildCategories(),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 9 / 11.5
+                ), 
+                itemCount: appData.items.length,
+                itemBuilder: (_, index) {
+                  return ItemTile(
+                    item: appData.items[index],
+                    cartAnimationMethod: itemSelectedCartAnimations
+                  );
+                }
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
