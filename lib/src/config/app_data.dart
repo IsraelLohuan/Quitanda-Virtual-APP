@@ -86,7 +86,9 @@ UserModel user = UserModel(
   email: 'lindo@gmail.com', 
   phone: '62 98656252', 
   cpf: '04175027106', 
-  password: '12345'
+  password: '12345',
+  id: '0',
+  token: '0'
 );
 
 List<OrderModel> orders = [
