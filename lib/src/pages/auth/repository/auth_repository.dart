@@ -17,10 +17,10 @@ class AuthRepository {
     );
 
     if(result['result'] != null) {
-      final user = UserModel.fromMap(result['result']);
+      final user = UserModel.fromJson(result['result']);
 
-      print(user.cpf);
-    }  else {
+      print(user.toString());
+    } else {
       print('signin não funcionou');
       print(result['error']);
     }
