@@ -29,7 +29,15 @@ String? nameValidator(String? name) {
 String? phoneValidator(String? phone) {
   if(phone == null || phone.isEmpty) return 'Digite um celular!';
    
-  if(!phone.isPhoneNumber) return 'Digite um número válido!';
+  if(phone.length < 14 || !phone.isPhoneNumber) return 'Digite um número válido!';
+
+  return null;
+}
+
+String? cpfValidator(String? cpf) {
+  if(cpf == null || cpf.isEmpty) return 'Digite um CPF!';
+   
+  if(!cpf.isCpf) return 'Digite um CPF válido!';
 
   return null;
 }
