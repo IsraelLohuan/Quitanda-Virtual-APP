@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_shimmer.dart';
-import 'package:greengrocer/src/pages/home/components/item_tile.dart';
+import 'package:greengrocer/src/pages/home/view/components/item_tile.dart';
 import 'package:greengrocer/src/pages/home/controller/home_controller.dart';
-import '../../config/app_data.dart' as appData;
-import '../common_widgets/app_name_widget.dart';
+import '../../../config/app_data.dart' as appData;
+import '../../common_widgets/app_name_widget.dart';
 import 'components/category_tile.dart';
 
 class HomeTab extends StatefulWidget {
