@@ -18,6 +18,8 @@ class HomeController extends GetxController {
   CategoryModel? currentCategory;
   List<ItemModel> get allProducts => currentCategory?.items ?? [];
 
+  Rx<String> searchTitle = ''.obs;
+
   bool get isLastPage {
     if(currentCategory!.items.length < itemsPerPage) {
       return true;
@@ -29,6 +31,11 @@ class HomeController extends GetxController {
   @override 
   void onInit() {
     super.onInit();
+
+    debounce(searchTitle, (_) {
+      print(searchTitle.value);
+    }, time: const Duration(milliseconds: 600));
+
     getAllCategories();
   }
 
