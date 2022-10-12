@@ -74,44 +74,49 @@ class _HomeTabState extends State<HomeTab> {
           children: [
             buildSearch(),
             buildCategories(),
-            GetBuilder<HomeController>(
-              builder: (controller) {
-                return Expanded(
-                  child: !controller.isLoading ? GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    physics: const BouncingScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 9 / 11.5
-                    ), 
-                    itemCount: appData.items.length,
-                    itemBuilder: (_, index) {
-                      return ItemTile(
-                        item: appData.items[index],
-                        cartAnimationMethod: itemSelectedCartAnimations
-                      );
-                    }
-                  ): GridView.count(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      physics: const BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10, 
-                      childAspectRatio:  9 / 11.5,
-                      children: List.generate(10, (_) => CustomShimmer(
-                        height: double.infinity,
-                        width: double.infinity,
-                        borderRadius: BorderRadius.circular(20),
-                    )),
-                  ),
-                );
-              }
-            )
+            buildGridProducts()
           ],
         ),
       ),
+    );
+  }
+
+  GetBuilder<HomeController> buildGridProducts() {
+    return GetBuilder<HomeController>(
+      builder: (controller) {
+        return Expanded(
+          child: !controller.isProductLoading ? GridView.builder(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+            physics: const BouncingScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 9 / 11.5
+            ), 
+            itemCount: controller.allProducts.length,
+            itemBuilder: (_, index) {
+              return ItemTile(
+                item: controller.allProducts[index],
+                  cartAnimationMethod: itemSelectedCartAnimations
+                );
+              }
+            ): GridView.count(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                physics: const BouncingScrollPhysics(),
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10, 
+                childAspectRatio:  9 / 11.5,
+                children: List.generate(10, (_) => CustomShimmer(
+                  height: double.infinity,
+                  width: double.infinity,
+                  borderRadius: BorderRadius.circular(20),
+              )
+            ),
+          ),
+        );
+      }
     );
   }
 
@@ -121,7 +126,7 @@ class _HomeTabState extends State<HomeTab> {
         return Container(
           padding: const EdgeInsets.only(left: 25),
           height: 40,
-          child: !controller.isLoading ? ListView.separated(
+          child: !controller.isCategoryLoading ? ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) {
               return CategoryTile(
