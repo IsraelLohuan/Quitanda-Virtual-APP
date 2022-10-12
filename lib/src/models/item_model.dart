@@ -28,4 +28,9 @@ class ItemModel {
 
   factory ItemModel.fromJson(Map<String, dynamic> json) => _$ItemModelFromJson(json);
   Map<String, dynamic> toJson() => _$ItemModelToJson(this);
+
+  @override
+  String toString() {
+    return 'ItemModel(id: $id, itemName: $itemName, imgUrl: $imgUrl, unit: $unit, price: $price, description: $description)';
+  }
 }
