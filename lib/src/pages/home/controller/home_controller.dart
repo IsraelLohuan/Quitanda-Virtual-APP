@@ -16,8 +16,15 @@ class HomeController extends GetxController {
   bool isProductLoading = true;
   List<CategoryModel> allCategories = [];
   CategoryModel? currentCategory;
-
   List<ItemModel> get allProducts => currentCategory?.items ?? [];
+
+  bool get isLastPage {
+    if(currentCategory!.items.length < itemsPerPage) {
+      return true;
+    }
+
+    return currentCategory!.pagination * itemsPerPage > allProducts.length;
+  }
 
   @override 
   void onInit() {
@@ -66,9 +73,17 @@ class HomeController extends GetxController {
     );
   }
 
-  Future<void> getAllProducts() async {
-    setLoading(true, isProduct: true);
+  void loadMoreProducts() {
+    currentCategory!.pagination ++;
+    getAllProducts(canLoad: false);
+  }
 
+  Future<void> getAllProducts({bool canLoad = true}) async {
+
+    if(canLoad) {
+      setLoading(true, isProduct: true);
+    }
+    
     final body = {
       'page': currentCategory!.pagination,
       'categoryId': currentCategory!.id,
@@ -81,7 +96,7 @@ class HomeController extends GetxController {
 
     result.when(
       sucess: (data) {
-        currentCategory!.items = data;
+        currentCategory!.items.addAll(data);
       }, 
       error: (message) {
         UtilsServices.showToast(message: message, isError: true);
