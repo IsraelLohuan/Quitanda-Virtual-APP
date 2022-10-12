@@ -21,13 +21,14 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
+
+  final searchController = TextEditingController();
+
   late Function(GlobalKey) runAddToCardAnimation;
 
   void itemSelectedCartAnimations(GlobalKey gkImage) {
     runAddToCardAnimation(gkImage);
   }
-
-  final controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -158,33 +159,45 @@ class _HomeTabState extends State<HomeTab> {
     );
   }
 
-  Padding buildSearch() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10
-      ),
-      child: TextFormField(
-        onChanged: (String value) {
-          controller.searchTitle.value = value;
-        },
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          isDense: true,
-          hintText: 'Pesquise aqui...',
-          prefixIcon: Icon(Icons.search, color: CustomColors.customConstratColor, size: 21,),
-          hintStyle: TextStyle(
-            color: Colors.grey.shade400,
-            fontSize: 14
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(60),
-              borderSide: const BorderSide(
-                width: 0,
-                style: BorderStyle.none
+  Widget buildSearch() {
+    return GetBuilder<HomeController>(
+      builder: (controller) => Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 10
+        ),
+        child: TextFormField(
+          controller: searchController,
+          onChanged: (String value) {
+            controller.searchTitle.value = value;
+          },
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+            isDense: true,
+            hintText: 'Pesquise aqui...',
+            prefixIcon: Icon(Icons.search, color: CustomColors.customConstratColor, size: 21,),
+            suffixIcon: controller.searchTitle.value.isNotEmpty ? IconButton(
+              icon: Icon(Icons.close, color: CustomColors.customConstratColor, size: 21,),
+              onPressed: () {
+                searchController.clear();
+                controller.searchTitle.value = '';
+                FocusScope.of(context).unfocus();
+              },
+            ) 
+            : null,
+            hintStyle: TextStyle(
+              color: Colors.grey.shade400,
+              fontSize: 14
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(60),
+                borderSide: const BorderSide(
+                  width: 0,
+                  style: BorderStyle.none
+              )
             )
-          )
+          ),
         ),
       ),
     );
