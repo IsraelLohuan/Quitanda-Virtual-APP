@@ -99,7 +99,7 @@ class OrderTile extends StatelessWidget {
                   ),
         
                   Visibility(
-                    visible: order.status == 'pending_payment',
+                    visible: order.status == 'pending_payment' && !order.isOverDue,
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
