@@ -54,11 +54,13 @@ class OrderStatusWidget extends StatelessWidget {
             isActive: currentStatus >= 3,   
             title: 'Preparando'
           ),
+          // ignore: equal_elements_in_set
           const _CustomDivider(),  
            _StatusDot(
             isActive: currentStatus >= 4,   
             title: 'Envio'
           ),
+          // ignore: equal_elements_in_set
           const _CustomDivider(),
            _StatusDot(
             isActive: currentStatus == 5,   

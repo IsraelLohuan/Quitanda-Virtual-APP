@@ -1,6 +1,6 @@
 import 'package:greengrocer/src/constants/endpoint.dart';
 import 'package:greengrocer/src/models/user_model.dart';
-import 'package:greengrocer/src/pages/auth/repository/auth_errors.dart' as authError;
+import 'package:greengrocer/src/pages/auth/repository/auth_errors.dart' as auth_error;
 import 'package:greengrocer/src/pages/auth/result/auth_result.dart';
 import 'package:greengrocer/src/services/http_manager.dart';
 
@@ -13,7 +13,7 @@ class AuthRepository {
       return AuthResult.success(UserModel.fromJson(result['result']));
     } 
 
-    return AuthResult.error(authError.authErrorsString(result['error']));
+    return AuthResult.error(auth_error.authErrorsString(result['error']));
   }
 
   Future<AuthResult> validateToken(String token) async {
@@ -59,7 +59,7 @@ class AuthRepository {
     );
   }
 
-  Future<bool> changePassword({
+  Future changePassword({
     required String email,
     required String currentPassword,
     required String newPassword,

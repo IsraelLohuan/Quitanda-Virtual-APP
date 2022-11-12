@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:greengrocer/src/config/app_data.dart' as appData;
 import 'package:greengrocer/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/custom_text_field.dart';
 import 'package:greengrocer/src/services/validators.dart';
@@ -80,6 +79,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<bool?> updatePassword() {
     final newPasswordController = TextEditingController();
     final currentPasswordController = TextEditingController();
+    // ignore: no_leading_underscores_for_local_identifiers
     final _formKey = GlobalKey<FormState>();
 
     return showDialog(
