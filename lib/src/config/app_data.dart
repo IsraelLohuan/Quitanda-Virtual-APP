@@ -76,9 +76,9 @@ final List<String> categories = [
 ];
 
 List<CartItemModel> cartItems = [
-  CartItemModel(item: apple, quantity: 1),
-  CartItemModel(item: mango, quantity: 1),
-  CartItemModel(item: guava, quantity: 3),
+  CartItemModel(item: apple, quantity: 1, id: ''),
+  CartItemModel(item: mango, quantity: 1, id: ''),
+  CartItemModel(item: guava, quantity: 3, id: ''),
 ];
 
 UserModel user = UserModel(
@@ -92,40 +92,5 @@ UserModel user = UserModel(
 );
 
 List<OrderModel> orders = [
-  OrderModel(
-    id: '69c02bd2-2609-11ed-861d-0242ac120002',
-    createdDateTime: DateTime.parse('2024-06-08 10:00:10.458'), 
-    overdueDateTime: DateTime.parse('2024-06-08 11:00:10.458'), 
-    items: [
-      CartItemModel(
-        item: apple, 
-        quantity: 2
-      ),  
-      CartItemModel(
-        item: mango, 
-        quantity: 2
-      )   
-    ], 
-    status: 'pending_payment', 
-    copyAndPaste: '04175027106', 
-    total: 11.0
-  ),
-  OrderModel(
-    id: '69c02bd2-2609-11ed-861d-0242ac120002',
-    createdDateTime: DateTime.parse('2024-06-08 10:00:10.458'), 
-    overdueDateTime: DateTime.parse('2024-06-08 11:00:10.458'), 
-    items: [
-      CartItemModel(
-        item: grape, 
-        quantity: 2
-      ),  
-      CartItemModel(
-        item: papaya, 
-        quantity: 2
-      )   
-    ], 
-    status: 'delivered', 
-    copyAndPaste: '04175027106', 
-    total: 11.0
-  )
+  
 ];

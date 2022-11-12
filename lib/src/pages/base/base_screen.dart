@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/base/controller/navigation_controller.dart';
-import '../cart/cart_tab.dart';
+import '../cart/view/cart_tab.dart';
 import '../home/view/home_tab.dart';
-import '../orders/orders_tab.dart';
+import '../orders/view/orders_tab.dart';
 import '../profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {

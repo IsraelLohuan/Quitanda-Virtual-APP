@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/item_model.dart';
 import 'package:greengrocer/src/pages/base/controller/navigation_controller.dart';
+import 'package:greengrocer/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrocer/src/pages/common_widgets/quantity_widget.dart';
 import 'package:greengrocer/src/services/utils_services.dart';
 
 class ProductScreen extends StatefulWidget {
-  final ItemModel item;
+  final ItemModel item = Get.arguments;
 
-  const ProductScreen({ Key? key, required this.item }) : super(key: key);
+  ProductScreen({ 
+    Key? key 
+  }) : super(key: key);
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -17,6 +20,7 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   int cartItemQuantity = 1;
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +112,10 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                           onPressed: () {
                             Get.back();
+                            cartController.addItemToCart(
+                              item: widget.item, 
+                              quantity: cartItemQuantity
+                            );
                             Get.find<NavigationController>().navigatePageView(NavigationTabs.cart);
                           },
                           label: const Text(

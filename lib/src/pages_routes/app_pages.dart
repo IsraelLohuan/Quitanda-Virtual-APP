@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:greengrocer/src/pages/base/base_screen.dart';
 import 'package:greengrocer/src/pages/base/binding/navigation_binding.dart';
+import 'package:greengrocer/src/pages/cart/binding/cart_binding.dart';
 import 'package:greengrocer/src/pages/home/binding/home_binding.dart';
+import 'package:greengrocer/src/pages/orders/binding/orders_binding.dart';
+import 'package:greengrocer/src/pages/product/product_screen.dart';
 import 'package:greengrocer/src/pages/splash/splash_screen.dart';
 
 import '../pages/auth/view/sign_in_screen.dart';
@@ -9,6 +12,10 @@ import '../pages/auth/view/sign_up_screen.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
+    GetPage(
+      page: () => ProductScreen(),
+      name: PagesRoutes.productRoute,
+    ),
     GetPage(
       name: PagesRoutes.splashRoute, 
       page: () => const SplashScreen()
@@ -26,13 +33,16 @@ abstract class AppPages {
       page: () => const BaseScreen(),
       bindings: [
         NavigationBinding(),
-        HomeBinding()
+        HomeBinding(),
+        CartBinding(),
+        OrdersBinding()
       ]
     )
   ];
 }
 
 abstract class PagesRoutes {
+  static const String productRoute = '/product';
   static const String signInRoute = '/signin';
   static const String signUpRoute = '/signup';
   static const String splashRoute = '/splash';
